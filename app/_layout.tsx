@@ -1,15 +1,51 @@
 import { Stack } from 'expo-router';
 
-export const unstable_settings = {
-  // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: '(tabs)',
-};
+import { StocksProvider } from '../context/StocksContext';
 
-export default function RootLayout() {
+export default function Layout() {
   return (
-    <Stack>
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
-    </Stack>
+    <StocksProvider>
+      <Stack
+        screenOptions={{
+          headerShown: true,
+          gestureEnabled: true,
+          animation: 'slide_from_right',
+          animationDuration: 200,
+          cardStyleInterpolator: ({ current, layouts }) => {
+            return {
+              cardStyle: {
+                transform: [
+                  {
+                    translateX: current.progress.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [layouts.screen.width, 0],
+                    }),
+                  },
+                ],
+                opacity: current.progress.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: [0.5, 1],
+                }),
+              },
+            };
+          },
+        }}>
+        <Stack.Screen
+          name="index"
+          options={{
+            title: 'Stock Market',
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="stock/[symbol]"
+          options={({ route }: { route: { params: { symbol: string } } }) => ({
+            title: route.params?.symbol || 'Stock Details',
+            headerShown: true,
+            headerBackTitle: 'Back',
+          })}
+        />
+      </Stack>
+    </StocksProvider>
   );
 }
