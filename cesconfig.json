@@ -1,0 +1,35 @@
+{
+  "cesVersion": "2.12.1",
+  "projectName": "talaverastocks",
+  "packages": [
+    {
+      "name": "expo-router",
+      "type": "navigation",
+      "options": {
+        "type": "tabs"
+      }
+    },
+    {
+      "name": "stylesheet",
+      "type": "styling"
+    }
+  ],
+  "flags": {
+    "noGit": false,
+    "noInstall": false,
+    "overwrite": false,
+    "importAlias": true,
+    "packageManager": "bun",
+    "eas": false
+  },
+  "packageManager": {
+    "type": "bun",
+    "version": "1.1.33"
+  },
+  "os": {
+    "type": "Darwin",
+    "platform": "darwin",
+    "arch": "x64",
+    "kernelVersion": "24.0.0"
+  }
+}
